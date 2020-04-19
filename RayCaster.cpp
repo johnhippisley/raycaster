@@ -8,12 +8,12 @@
 #include <vector> // std::vector
 
 // Color constants
-const u32 CEILING_COLOR	=		0x424242;
-const u32 FLOOR_COLOR =			0x706c6d;
-const u32 WALL_COLOR =			0x113f49;
-const u32 MINIMAP_TILE_COLOR =	0xff0000;
-const u32 MINIMAP_CAMERA_COLOR =0x00ff00;
-const u32 MINIMAP_RAY_COLOR =	0x0000ff;
+const u32 CEILING_COLOR	=		 0x424242;
+const u32 FLOOR_COLOR =			 0x706c6d;
+const u32 WALL_COLOR =			 0x113f49;
+const u32 MINIMAP_TILE_COLOR =	 0xff0000;
+const u32 MINIMAP_CAMERA_COLOR = 0x00ff00;
+const u32 MINIMAP_RAY_COLOR =	 0x0000ff;
 
 // Other constants
 const int RAY_LIMIT = 		    6400; // Max distance a ray can travel
