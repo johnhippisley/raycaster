@@ -10,9 +10,8 @@
 
 const double CAMERA_SPEED = 2.0;
 
-Engine::Engine(double targetFPS)
+Engine::Engine(double targetFPS): targetFPS(targetFPS)
 {
-	this->targetFPS = targetFPS;
 }
 
 void Engine::run()
@@ -45,8 +44,8 @@ void Engine::init() //initializs everything
 					 1, 1, 1, 1, 1, 1, 1, 1};
 	map = new Map(8, 5, 64);
 	map->loadMapData((tileType*) mapData);
-	// Initialize camera at (64, 64), a height of half a tile, a view angle of 315, and FOV of 60
-	camera = new Camera(64, 64, map->tileSize / 2, 60, graphics->getBufferWidth(), graphics->getBufferHeight());
+	// Initialize camera at (64, 64), a size of half a tile, height of half a tile, a view angle of 315, and FOV of 60
+	camera = new Camera(80, 80, map->tileSize / 2, map->tileSize / 2, 60, graphics->getBufferWidth(), graphics->getBufferHeight());
 	camera->setViewingAngle(315);
 	// Put everything together into the raycaster object
 	raycaster = new RayCaster(graphics, camera, map);
@@ -69,13 +68,13 @@ void Engine::update()
     				camera->df = CAMERA_SPEED;
     				break;
     			case SDLK_a:
-    				camera->ds = -CAMERA_SPEED;
+    				camera->dp = -CAMERA_SPEED;
     				break;
     			case SDLK_s:
     				camera->df = -CAMERA_SPEED;
     				break;
     			case SDLK_d:
-    				camera->ds = CAMERA_SPEED;
+    				camera->dp = CAMERA_SPEED;
 					break;
     			case SDLK_LEFT:
     				camera->da = CAMERA_SPEED;
@@ -93,13 +92,13 @@ void Engine::update()
     				camera->df = 0;
     				break;
     			case SDLK_a:
-    				camera->ds = 0;
+    				camera->dp = 0;
     				break;
     			case SDLK_s:
     				camera->df = 0;
     				break;
     			case SDLK_d:
-    				camera->ds = 0;
+    				camera->dp = 0;
 					break;
     			case SDLK_LEFT:
     				camera->da = 0;
@@ -110,7 +109,7 @@ void Engine::update()
 			}
     	}
 	}
-	camera->update();
+	camera->update(map);
 }
 
 void Engine::render()

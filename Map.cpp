@@ -6,19 +6,13 @@
 #include <cstdlib> // malloc()
 #include <cstring> // memcpy()
 
-Map::Map(int width, int height, int tileSize)
+Map::Map(int width, int height, int tileSize): width(width), height(height), tileSize(tileSize)
 {
-	this->width = width;
-	this->height = height;
-	this->tileSize = tileSize;
 	tiles = (tileType*) malloc(width * height * sizeof(tileType));
 }
 
-Map::Map(int width, int height, int tileSize, tileType* tiles)
+Map::Map(int width, int height, int tileSize, tileType* tiles): width(width), height(height), tileSize(tileSize)
 {
-	this->width = width;
-	this->height = height;
-	this->tileSize = tileSize;
 	loadMapData(tiles);
 }
 

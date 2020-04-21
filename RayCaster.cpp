@@ -8,23 +8,21 @@
 #include <vector> // std::vector
 
 // Color constants
-const u32 CEILING_COLOR	=		 0x424242;
-const u32 FLOOR_COLOR =			 0x706c6d;
-const u32 WALL_COLOR =			 0x113f49;
-const u32 MINIMAP_TILE_COLOR =	 0xff0000;
-const u32 MINIMAP_CAMERA_COLOR = 0x00ff00;
-const u32 MINIMAP_RAY_COLOR =	 0x0000ff;
+const u32 CEILING_COLOR	=		 	 0x424242;
+const u32 FLOOR_COLOR =			 	 0x706c6d;
+const u32 WALL_COLOR =				 0x113f49;
+const u32 MINIMAP_TILE_COLOR =	 	 0x135470;
+const u32 MINIMAP_CAMERA_COLOR = 	 0xff0000;
+const u32 MINIMAP_CAMERA_BOX_COLOR = 0x106003;
+const u32 MINIMAP_RAY_COLOR =	 	 0x21201d;
 
 // Other constants
 const int RAY_LIMIT = 		    6400; // Max distance a ray can travel
 const int MINIMAP_TILE_SIZE =   12;
-const int MINIMAP_CAMERA_SIZE = 1;
 
-RayCaster::RayCaster(Graphics* graphics, Camera* camera, Map* map)
+RayCaster::RayCaster(Graphics* graphics, Camera* camera, Map* map):
+graphics(graphics), camera(camera), map(map)
 {
-	this->graphics = graphics;
-	this->camera = camera;
-	this->map = map;
 }
 
 void RayCaster::render()
@@ -56,6 +54,7 @@ void RayCaster::render()
 	const double MINIMAP_SCALE = (double) MINIMAP_TILE_SIZE / map->tileSize;
 	int sCameraX = camera->x * MINIMAP_SCALE;
 	int sCameraY = camera->y * MINIMAP_SCALE;
+	double sCameraSize = camera->size * MINIMAP_SCALE;
 	// Draw tiles
 	for(int y = 0; y < map->height; y++)
 	{
@@ -63,7 +62,7 @@ void RayCaster::render()
 		{
 			graphics->drawRectangle(x * MINIMAP_TILE_SIZE, y * MINIMAP_TILE_SIZE, MINIMAP_TILE_SIZE, MINIMAP_TILE_SIZE, 0);
 			if(map->getTile(x, y) != NO_TILE)
-				graphics->drawRectangle(x * MINIMAP_TILE_SIZE + 1, y * MINIMAP_TILE_SIZE + 1, MINIMAP_TILE_SIZE - 2, 
+				graphics->drawRectangle(x * MINIMAP_TILE_SIZE + 1, y * MINIMAP_TILE_SIZE + 1, MINIMAP_TILE_SIZE - 2,
 					MINIMAP_TILE_SIZE - 2, MINIMAP_TILE_COLOR);
 		}
 	}
@@ -74,7 +73,8 @@ void RayCaster::render()
 		graphics->drawVector(sCameraX, sCameraY, angle, rayLengths.at(i) * MINIMAP_SCALE, MINIMAP_RAY_COLOR);
 		angle -= angleBetweenRays;
 	}
-	graphics->drawRectangle(sCameraX, sCameraY, MINIMAP_CAMERA_SIZE, MINIMAP_CAMERA_SIZE, MINIMAP_CAMERA_COLOR);
+	graphics->drawRectangle(sCameraX - sCameraSize / 2, sCameraY - sCameraSize / 2, sCameraSize, sCameraSize, MINIMAP_CAMERA_BOX_COLOR);
+	graphics->drawRectangle(sCameraX, sCameraY, 1, 1, MINIMAP_CAMERA_COLOR);
 }
 
 double RayCaster::distance(double x1, double y1, double x2, double y2)

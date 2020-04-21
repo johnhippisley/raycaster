@@ -1,6 +1,8 @@
 #ifndef CAMERA_H
 #define CAMERA_H
 
+#include "Map.hpp"
+
 // Everything will be in degrees
 #define dtor(x) ((x) * (M_PI / 180.0))
 #define dtan(x) (tan(dtor(x)))
@@ -13,15 +15,15 @@ class Camera
 {
 	private:
 		double viewingAngle;
+		void move(double dx, double dy, Map* map);
 		double wrapAngle();
 	public:
 		int projWidth, projHeight;
-		double x, y,  df, ds, da;
-		double height /*(z)*/, fov;
-		Camera(double x, double y, double height, double fov, int projWidth, int projHeight);
-		void update();
+		double x, y, df, dp, da;
+		double height, size, fov;
+		Camera(double x, double y, double size, double height, double fov, int projWidth, int projHeight);
+		void update(Map* map);
 		void setViewingAngle(double angle);
-		void increaseViewingAngle(double degrees);
 		double getViewingAngle();
 		double getDistanceToProjectionPlane();
 };

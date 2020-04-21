@@ -5,18 +5,15 @@
 #include "Texture.hpp"
 #include <iostream>
 
+Texture::Texture(int width, int height, u32* pixels): width(width), height(height), pixels(pixels)
+{
+}
+
 Texture::Texture(SDL_Surface* surface)
 {
 	width = surface->w;
 	height = surface->h;
 	pixels = (u32*) surface->pixels;
-}
-
-Texture::Texture(int width, int height, u32* pixels)
-{
-	this->width = width;
-	this->height = height;
-	this->pixels = pixels;
 }
 
 // Feature not used... yet
