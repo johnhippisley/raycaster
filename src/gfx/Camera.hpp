@@ -1,7 +1,7 @@
 #ifndef CAMERA_H
 #define CAMERA_H
 
-#include "Map.hpp"
+#include "../level/Map.hpp"
 
 // Everything will be in degrees
 #define dtor(x) ((x) * (M_PI / 180.0))

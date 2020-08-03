@@ -1,9 +1,9 @@
 #ifndef RAYCASTER_H
 #define RAYCASTER_H
 
+#include "../level/Map.hpp"
 #include "Graphics.hpp"
 #include "Camera.hpp"
-#include "Map.hpp"
 
 class RayCaster
 {

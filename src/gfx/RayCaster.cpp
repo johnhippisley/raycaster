@@ -1,5 +1,5 @@
 /*
-	Written by John Hippisley, 4/19/20
+	Written by John Hippisley, 4/20/20
 	Folowing https://permadi.com/1996/05/ray-casting-tutorial-table-of-contents/
 */
 
